@@ -5,8 +5,8 @@ from peewee import *
 
 database = MySQLDatabase('fastapi_project', 
         user='root',
-        password='GoogleCrispin124?a',
-        host='localhost', 
+        password='DATABASEPASSWORD',
+        host='localhost',
         port=3306)
 
 
@@ -18,7 +18,7 @@ class User(Model):
     class Meta:
         database = database
         table_name = 'users'
-    
+
 
     @classmethod
     def create_password(cls, password):
@@ -27,11 +27,11 @@ class User(Model):
 
         return h.hexdigest()
 
-    
+
     @classmethod
     def authenticate(cls, username, password):
         user = cls.select().where(User.username == username).first()
-        
+
         if user and user.password == User.create_password(password):
             return user
 
@@ -58,7 +58,7 @@ class UserReview(Model):
 
     class Meta:
         database = database
-        table_name = 'user_reviews' 
+        table_name = 'user_reviews'
 
     def __str__(self):
         return f'{self.user.username} - #{self.movie.title}'
